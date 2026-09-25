@@ -1,5 +1,18 @@
 # Field Day, a plugin for Movable Type
 
+> **About this fork:** The original
+> [movabletype/mt-plugin-field-day](https://github.com/movabletype/mt-plugin-field-day)
+> repository is archived. This fork adds a fix for a long-standing bug where a
+> `<mt:EntryField>` (or other `Field`/`FieldGroup`) block that produces no
+> output makes publishing fail with an empty error. The usual trigger is a
+> block containing only `<mt:SetVarBlock>`:
+>
+>     <mt:EntryField field="hosts"><mt:SetVarBlock name="ids" function="push"><mt:EntryFieldValue></mt:SetVarBlock></mt:EntryField>
+>
+> The old workaround was a space before `</mt:EntryField>`, which adds stray
+> whitespace to your output. With this fix the space is no longer needed. The
+> change is in `plugins/FieldDay/lib/FieldDay/Template/PubTags.pm`.
+
 * Author: Six Apart
 * Copyright: 2008-2013 Six Apart Ltd.
 * License: MIT
