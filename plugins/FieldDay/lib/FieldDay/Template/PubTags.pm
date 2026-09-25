@@ -95,8 +95,8 @@ sub hdlr_FieldGroup {
     for my $i (@indices) {
         next if (%instances && !$instances{$i+1});
         local $ctx->{'__stash'}{"$stash_key:instance"} = $i;
-        my $text = $builder->build( $ctx, $tokens )
-            or return $ctx->error( $builder->errstr );
+        my $text = $builder->build( $ctx, $tokens );
+        return $ctx->error( $builder->errstr ) unless defined $text;
         $out .= $text;
     }
     return $out;
@@ -121,8 +121,8 @@ sub hdlr_Field {
     for (my $i = 0; $i < $fd_data->{'group_need_ns'}->{$group_id}; $i++) {
         next if (%instances && !$instances{$i+1});
         local $ctx->{'__stash'}{"$stash_key:instance"} = $i;
-        my $text = $builder->build( $ctx, $tokens )
-            or return $ctx->error( $builder->errstr );
+        my $text = $builder->build( $ctx, $tokens );
+        return $ctx->error( $builder->errstr ) unless defined $text;
         $out .= $text;
     }
     return $out;
